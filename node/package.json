@@ -1,0 +1,16 @@
+{
+  "name": "node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "aedes": "^0.44.0",
+    "mqtt": "^4.2.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "mqtt": "mqtt-server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
