@@ -5,7 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "aedes": "^0.44.0",
-    "mqtt": "^4.2.4"
+    "mqtt": "^4.2.4",
+    "websocket": "^1.0.32"
   },
   "devDependencies": {},
   "scripts": {
