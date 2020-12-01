@@ -1,43 +1,15 @@
-var WebSocketClient = require("websocket").client;
-var Readline = require("readline");
+const WebSocket = require("ws");
 
-var client = new WebSocketClient();
-const readline = Readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-});
+const ws = new WebSocket("ws://localhost:8080/");
 
-client.on("connectFailed", function (error) {
-    console.log("Proses koneksi error: " + error.toString());
-});
-
-client.on("connect", function (connection) {
-    console.log("Klien WebSocket berhasil terkoneksi.");
-
-    connection.on("error", function (error) {
-        console.log("Koneksi error: " + error.toString());
-    });
-
-    connection.on("close", function () {
-        console.log("Koneksi echo-protocol tertutup.");
-    });
-
-    connection.on("message", function (message) {
-        if (message.type === "utf8") {
-            console.log(
-                new Date() + ": Pesan baru: '" + message.utf8Data + "'"
-            );
-        }
-    });
-
-    if (connection.connected) {
-        function kirimPesan() {
-            connection.sendUTF("Waow");
-            setTimeout(kirimPesan, 1000);
-        }
-
-        kirimPesan();
+ws.on("open", function open() {
+    function sendPog() {
+        ws.send((new Date()) + " from node client");
+        setTimeout(sendPog, 3000)
     }
+    sendPog()
 });
 
-client.connect("ws://localhost:8080/", "echo-protocol");
+ws.on("message", function incoming(data) {
+    console.log(data);
+});
